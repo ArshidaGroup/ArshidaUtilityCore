@@ -18,6 +18,7 @@ namespace ArshidaCoreUtility.Models
                 RouteValue = RouteValue,
                 Method = GetMethod,
                 Relations = null
+
             };
         
         [JsonProperty(Order = -4)]
