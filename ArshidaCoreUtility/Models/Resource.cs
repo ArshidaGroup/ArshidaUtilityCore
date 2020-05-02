@@ -6,10 +6,9 @@ using Newtonsoft.Json;
 
 namespace ArshidaCoreUtility.Models
 {
-    public abstract class Resource:Link
+    public abstract class Resource : Link
     {
-        [JsonProperty(Order =  -2)]
-        [NotMapped]
-        public  Link Self { get; set; }
+        [JsonIgnore]
+        public Link Self { get; set; }
     }
 }

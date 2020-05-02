@@ -15,7 +15,7 @@ namespace ArshidaCoreUtility
         public string endPoint { get; set; }
         public httpVerb httpMethod { get; set; }
 
-        public RestClient()
+        public RestClient(string v)
         {
             endPoint = string.Empty;
             httpMethod = httpVerb.GET;

@@ -1,16 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.Routing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using ArshidaCoreUtility.Infrastructure;
 using ArshidaCoreUtility.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.Routing;
 
-namespace ArshidaCoreUtility.Filter
+namespace ArshidaCoreUtility.Filters
 {
     public class LinkRewritingFilter : IAsyncResultFilter
     {
@@ -20,15 +19,23 @@ namespace ArshidaCoreUtility.Filter
         {
             _urlHelperFactory = urlHelperFactory;
         }
-        public Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
+
+        public Task OnResultExecutionAsync(
+            ResultExecutingContext context, ResultExecutionDelegate next)
         {
             var asObjectResult = context.Result as ObjectResult;
             bool shouldSkip = asObjectResult?.StatusCode >= 400
-                              || asObjectResult?.Value == null
-                              || asObjectResult?.Value as Resource == null;
-            if (shouldSkip) return next();
+                || asObjectResult?.Value == null
+                || asObjectResult?.Value as Resource == null;
+
+            if (shouldSkip)
+            {
+                return next();
+            }
+
             var rewriter = new LinkRewriter(_urlHelperFactory.GetUrlHelper(context));
             RewriteAllLinks(asObjectResult.Value, rewriter);
+
             return next();
         }
 
@@ -38,7 +45,7 @@ namespace ArshidaCoreUtility.Filter
 
             var allProperties = model
                 .GetType().GetTypeInfo()
-                .GetProperties()
+                .GetAllProperties()
                 .Where(p => p.CanRead)
                 .ToArray();
 
@@ -69,7 +76,16 @@ namespace ArshidaCoreUtility.Filter
                         ?.SetValue(model, rewritten.Relations);
                 }
             }
+
+            var arrayProperties = allProperties.Where(p => p.PropertyType.IsArray);
+            RewriteLinksInArrays(arrayProperties, model, rewriter);
+
+            var objectProperties = allProperties
+                .Except(linkProperties)
+                .Except(arrayProperties);
+            RewriteLinksInNestedObjects(objectProperties, model, rewriter);
         }
+
         private static void RewriteLinksInNestedObjects(
             IEnumerable<PropertyInfo> objectProperties,
             object model,
@@ -106,5 +122,6 @@ namespace ArshidaCoreUtility.Filter
                 }
             }
         }
+
     }
 }

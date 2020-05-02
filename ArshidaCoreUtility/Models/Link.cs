@@ -9,35 +9,46 @@ namespace ArshidaCoreUtility.Models
 {
     public class Link
     {
-        public const string GetMethod = "Get";
+        public const string GetMethod = "GET";
 
-        public static Link To(string RouteName, object RouteValue = null)
+        public static Link To(string routeName, object routeValue = null)
             => new Link
             {
-                RouteName = RouteName,
-                RouteValue = RouteValue,
+                RouteName = routeName,
+                RouteValues = routeValue,
                 Method = GetMethod,
                 Relations = null
-
             };
-        
+
+        public static Link ToCollection(string routeName, object routeValues = null)
+            => new Link
+            {
+                RouteName = routeName,
+                RouteValues = routeValues,
+                Method = GetMethod,
+                Relations = new[] { "collection" }
+            };
+
         [JsonProperty(Order = -4)]
         public string Href { get; set; }
-        
-        [JsonProperty(Order = -3, PropertyName = "rel", NullValueHandling = NullValueHandling.Ignore)]
+
+        [JsonProperty(Order = -3,
+            PropertyName = "rel",
+            NullValueHandling = NullValueHandling.Ignore)]
         public string[] Relations { get; set; }
-        
-        [JsonProperty(Order = -2, PropertyName = "method",DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
+
+        [JsonProperty(Order = -2,
+            DefaultValueHandling = DefaultValueHandling.Ignore,
+            NullValueHandling = NullValueHandling.Ignore)]
         [DefaultValue(GetMethod)]
         public string Method { get; set; }
 
-        // stores the route name before being rewritten by the LinkRewritingFilter
-        [JsonIgnore] 
+        // Stores the route name before being rewritten by the LinkRewritingFilter
+        [JsonIgnore]
         public string RouteName { get; set; }
 
-
-        // stores the route name before being rewritten by the LinkRewritingFilter
+        // Stores the route parameters before being rewritten by the LinkRewritingFilter
         [JsonIgnore]
-        public object RouteValue { get; set; }
+        public object RouteValues { get; set; }
     }
 }

@@ -4,9 +4,8 @@ using System.Text;
 
 namespace ArshidaCoreUtility.Models
 {
-    public class BaseInfo:Resource
+    public class SoftwareInfo:Resource
     {
-        public Guid Id { get; set; }
         public string SoftwareName { get; set; }
         public string CompanyName { get; set; }
         public string CompanyPhones { get; set; }

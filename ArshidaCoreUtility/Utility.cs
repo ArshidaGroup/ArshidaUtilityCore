@@ -74,7 +74,7 @@ namespace ArshidaCoreUtility
             return table;
 
         }
-     /*   public static string SendNoFilteredMessage(string apiKey, string ReciptorNumber, string TemplateName, string Param1, string Param2, string Param3)
+        public static string SendNoFilteredMessage(string apiKey, string ReciptorNumber, string TemplateName, string Param1, string Param2, string Param3)
         {
             try
             {
@@ -91,6 +91,40 @@ namespace ArshidaCoreUtility
 
                 IRestResponse response = client.Execute(request);
                 return response.StatusCode.ToString();
+            }
+            catch (Exception ex) { return ex.Message; }
+            //            کد خطا  توضیحات
+            //1   نام کاربری یا رمز عبور معتبر نمی باشد .
+            //2   آرایه ها خالی می باشد.
+            //3   طول آرایه بیشتر از 100 می باشد .
+            //4   طول آرایه ی فرستنده و گیرنده و متن پیام با یکدیگر تطابق ندارد.
+            //5   امکان گرفتن پیام جدید وجود ندارد .
+            //6 - حساب کاربری غیر فعال می باشد.
+            //- نام کاربری و یا رمز عبور خود را به درستی وارد نمی کنید .
+            //-در صورتی که به تازگی وب سرویس را فعال کرده اید از منوی تنظیمات _رمز عبور ، رمز عبور وب سرویس خود را مجدد ست کنید.
+            //7   امکان دسترسی به خط مورد نظر وجود ندارد .
+            //8   شماره گیرنده نامعتبر است .
+            //9   حساب اعتبار ریالی مورد نیاز را دارا نمی باشد.
+            //10  خطایی در سیستم رخ داده است . دوباره سعی کنید.
+            //11  نامعتبر می باشد.IP
+            //20  شماره مخاطب فیلتر شده می باشد .
+            //21  ارتباط با سرویس دهنده قطع می باشد.
+        }
+        
+        /*
+        public static string SendWebServiceWithoutFilterMessage(string apiKey, string ReciptorNumber, string TemplateName, string Param1, string Param2, string Param3)
+        {
+            try
+            {
+                var client = new RestClient("http://api.smsapp.ir/v2/sms/send/simple");
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("apikey", "your apikey");
+                request.AddParameter("senddate", 1484352000);
+                request.AddParameter("receptor", 09111111111);
+                request.AddParameter("message", "test");
+                request.AddParameter("checkingids", "11509774");
+                request.AddParameter("sender", "50001000");
+                IRestResponse response = client.Execute(request);
             }
             catch (Exception ex) { return ex.Message; }
             //            کد خطا  توضیحات
