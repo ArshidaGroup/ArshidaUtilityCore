@@ -11,6 +11,7 @@ namespace ArshidaCoreUtility.Models
     {
         public const string GetMethod = "GET";
 
+
         public static Link To(string routeName, object routeValue = null)
             => new Link
             {
