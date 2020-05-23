@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace ArshidaCoreUtility.Models
+namespace ArshidaCoreUtility.RestFullAPI
 {
     public class PagingOptions
     {
@@ -12,5 +12,14 @@ namespace ArshidaCoreUtility.Models
 
         [Range(1, 99999, ErrorMessage = "Limit must be greater than 0 and less than 100")]
         public int? Limit { get; set; }
+
+        public PagingOptions Replace(PagingOptions newer)
+        {
+            return new PagingOptions
+            {
+                Offset = newer.Offset ?? this.Offset,
+                Limit = newer.Limit ?? this.Limit
+            };
+        }
     }
 }

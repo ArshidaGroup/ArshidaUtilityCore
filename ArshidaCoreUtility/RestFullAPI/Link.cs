@@ -5,7 +5,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace ArshidaCoreUtility.Models
+namespace ArshidaCoreUtility.RestFullAPI
 {
     public class Link
     {

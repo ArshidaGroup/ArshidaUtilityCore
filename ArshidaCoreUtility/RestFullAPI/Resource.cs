@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace ArshidaCoreUtility.Models
+namespace ArshidaCoreUtility.RestFullAPI
 {
     public abstract class Resource : Link
     {

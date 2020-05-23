@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ArshidaCoreUtility.Models
+namespace ArshidaCoreUtility.RestFullAPI
 {
     public class RootResponse : Resource
     {

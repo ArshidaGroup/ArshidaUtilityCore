@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using ArshidaCoreUtility.Infrastructure;
+
 using ArshidaCoreUtility.Models;
 
-namespace ArshidaCoreUtility.Filters
+namespace ArshidaCoreUtility.RestFullAPI
 {
     public class LinkRewritingFilter : IAsyncResultFilter
     {

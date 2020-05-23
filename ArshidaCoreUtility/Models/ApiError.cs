@@ -1,11 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace ArshidaCoreUtility.Models
 {
     public class ApiError
     {
+        public ApiError(ModelStateDictionary modelState)
+        {
+            ErrorMessage = "Invalid parameters.";
+            Details = modelState
+                .FirstOrDefault(x => x.Value.Errors.Any()).Value.Errors
+                .FirstOrDefault().ErrorMessage;
+        }
         public ApiError()
         {
             dateTime = DateTime.Now;

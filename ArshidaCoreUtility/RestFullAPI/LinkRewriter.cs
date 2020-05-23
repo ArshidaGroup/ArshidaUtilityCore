@@ -4,7 +4,7 @@ using System.Text;
 using ArshidaCoreUtility.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ArshidaCoreUtility.Infrastructure
+namespace ArshidaCoreUtility.RestFullAPI
 {
     public class LinkRewriter
     {
